@@ -155,3 +155,9 @@ You must understand every line you submit. We check this with your video and in 
 5. Paste the repository link and the video link in the application form.
 
 We will run `pnpm install && pnpm check && pnpm typecheck && pnpm test` on your repository.
+
+## Decisions
+
+- Shares store the idempotency key and payment timestamp together, so a conditional update makes repeated and concurrent payments safe.
+- Bill creation uses a D1 batch to insert the bill and all of its shares as one unit.
+- The web page loads a home by ID and keeps server state separate from payment state, so failed payments never make an unpaid share appear paid.
